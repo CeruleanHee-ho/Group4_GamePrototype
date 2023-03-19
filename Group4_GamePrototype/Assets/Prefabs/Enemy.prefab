@@ -110,7 +110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc363e05b73efb94f978dfca53fe8f09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateSpeed: 1
+  rotateSpeed: 0.5
 --- !u!1 &5718833420295481628
 GameObject:
   m_ObjectHideFlags: 0
@@ -156,6 +156,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aecb602a206e62e4db0a70697b6dacd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 15
-  despawnPoint: -6
+  despawnPoint: -5
   selfObject: {fileID: 5718833420295481628}
+  randNum: 0
+  materialLeft: {fileID: 2100000, guid: dcf1463cc2f70ef42bac065e30652fee, type: 2}
+  materialMiddle: {fileID: 2100000, guid: ee50545b713b02e448035f48d5cc5360, type: 2}
+  materialRight: {fileID: 2100000, guid: be647a564df50364b8e7c5da270fd136, type: 2}

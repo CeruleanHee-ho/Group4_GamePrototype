@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class Restart : MonoBehaviour
 {
+    public PlayerController player;
+    
     public void ResetTheGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
@@ -12,7 +14,7 @@ public class Restart : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
+        if (player.gameOver && Input.GetMouseButtonDown(0))
         {
             //Debug.Log("R is pressed");
             ResetTheGame();

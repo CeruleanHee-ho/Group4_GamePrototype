@@ -9,21 +9,24 @@ public class SpawnManager : MonoBehaviour
     private Vector3 spawnPosition;
     public float startDelay;
     public float repeatRate;
-    private float startY = 0.5f;
-    private int startZ = 11;
-    public int randNum;
-    public int lastNum; // Keeps track of the last number that was generated.
+    public int randNum; // Generates a random number to determine which lane the enemy cube spawns in.
+    public int lastNum; // Keeps track of the last number (randNum) that was generated.
+    public int randNumY; // Generates a random number to Determine whether or not the enemy cube will be floating.
+    public int lastNumY; // Keeps track of the last number (randNumY) that was generated.
     #endregion
 
-    // This code calls a random number from 0-2, and each of those three numbers has their own output X position for the enemy cube to spawn at.
-
+    #region Setup
     // Randomizes starting position of the first enemy cube.
     void Start()
     {
         randNum = Random.Range(0, 3);
-        spawnPosition = new Vector3(RandNumOut(randNum), startY, startZ);
+        spawnPosition = new Vector3(randNum, randNumY, 0);
         InvokeRepeating("SpawnObstacle", startDelay, repeatRate);
     }
+    #endregion
+
+    #region Spawning
+    // This code calls a random number from 0-2, and each of those three numbers has their own output X position for the enemy cube to spawn at.
 
     // Spawns enemies and randomizes which lane they'll spawn in.
     void SpawnObstacle()
@@ -34,29 +37,20 @@ public class SpawnManager : MonoBehaviour
         {
             randNum = Random.Range(0, 3);
         }
-        Vector3 pos = new Vector3(RandNumOut(randNum), startY, startZ);
+
+        #region Commented out code for spawning elevated enemy cubes (for use later).
+        // Ditto, but with the Y value.
+        randNumY = Random.Range(0, 3);
+        while (lastNumY == randNumY)
+        {
+            randNumY = Random.Range(0, 3);
+        }
+        #endregion
+
+        Vector3 pos = new Vector3(randNum, randNumY, 0);
         Instantiate(obstaclePrefab, pos, obstaclePrefab.transform.rotation);
         lastNum = randNum;
+        lastNumY = randNumY;
     }
-
-    // Gives each number input a position output for the enemy cubes.
-    private int RandNumOut(int rn)
-    {
-        switch (rn)
-        {
-            case 0:
-                return -2;
-                break;
-            case 1:
-                return 0;
-                break;
-            case 2:
-                return 2;
-                break;
-            // I believe this default case is what's causing the "Unreachable code" detection, although, having a default case is good practice and I think it required.
-            default:
-                return 0;
-                break;
-        }
-    }
+    #endregion
 }
