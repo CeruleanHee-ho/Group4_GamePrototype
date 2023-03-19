@@ -73,9 +73,9 @@ public class PlayerController : MonoBehaviour
         #endregion
     }
 
+    #region Collision Detection
     void FixedUpdate()
     {
-#region Collision Detection
         // There are rays on both sides of the player on the Z axis, and if either of those rays touch an object with the "Enemy" layer, then it's Game Over.
         Vector3 position = transform.position;
         Vector3 direction = Vector3.forward;
@@ -106,8 +106,8 @@ public class PlayerController : MonoBehaviour
         //Debug.DrawRay(transform.position, direction * distance, Color.green);
         //Debug.DrawRay(transform.position, -direction * distance, Color.green);
         //Debug.DrawRay(transform.position, -Vector3.up * (distance * 5), Color.green);
-        #endregion
     }
+    #endregion
 
     #region Lane Movement
     // Player starts in the middle, but the X position of the player can change in accordance to the left and right buttons shown on the screen.

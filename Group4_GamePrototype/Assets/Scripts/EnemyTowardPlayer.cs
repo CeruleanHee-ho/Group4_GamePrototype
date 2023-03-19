@@ -87,10 +87,11 @@ public class EnemyTowardPlayer : MonoBehaviour
         {
             case 0:
                 return 3.4f; // You don't need breaks when using returns.
-            case 2:
-                return 6.7f;
-            default: // default also serves as case 1.
+            case 1:
                 return 4.9f;
+            default: // default also serves as case 2.
+                return 6.7f;
+            
         }
     }
 
