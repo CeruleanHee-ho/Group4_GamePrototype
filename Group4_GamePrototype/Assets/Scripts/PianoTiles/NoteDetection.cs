@@ -5,6 +5,9 @@ using UnityEngine;
 public class NoteDetection : MonoBehaviour
 {
     #region Variables
+    //
+    public ScoreSystemPT score;
+
     // Responsible for tracking prefabs.
     public GameObject tileNote0;
     public GameObject tileNote1;
@@ -236,6 +239,7 @@ public class NoteDetection : MonoBehaviour
         if (canHit1 && prefState1 != 0)
         {
             Destroy(tileNote1);
+            score.amountToAdd = ScoreOut1(prefState1);
             prefState1 = 0;
             canHit1 = false;
             i = 1;
@@ -244,6 +248,7 @@ public class NoteDetection : MonoBehaviour
         if (canHit2 && prefState2 != 0)
         {
             Destroy(tileNote2);
+            score.amountToAdd = ScoreOut2(prefState2);
             prefState2 = 0;
             canHit2 = false;
             i = 2;
@@ -252,6 +257,7 @@ public class NoteDetection : MonoBehaviour
         if (canHit3 && prefState3 != 0)
         {
             Destroy(tileNote3);
+            score.amountToAdd = ScoreOut3(prefState3);
             prefState3 = 0;
             canHit3 = false;
             i = 3;
@@ -260,9 +266,81 @@ public class NoteDetection : MonoBehaviour
         if (canHit4 && prefState4 != 0)
         {
             Destroy(tileNote4);
+            score.amountToAdd = ScoreOut4(prefState4);
             prefState4 = 0;
             canHit4 = false;
             i = 0;
         }
     }
+
+    // Score output for prefab states.
+    #region Score Output
+    // Score output for prefab 1.
+    private int ScoreOut1(int num)
+    {
+        switch (num)
+        {
+            case 1:
+                return 15;
+            case 2:
+                return 25;
+            case 3:
+                return 5;
+            default:
+                return 0;
+
+        }
+    }
+
+    // Score output for prefab 2.
+    private int ScoreOut2(int num)
+    {
+        switch (num)
+        {
+            case 1:
+                return 15;
+            case 2:
+                return 25;
+            case 3:
+                return 5;
+            default:
+                return 0;
+
+        }
+    }
+
+    // Score output for prefab 3.
+    private int ScoreOut3(int num)
+    {
+        switch (num)
+        {
+            case 1:
+                return 15;
+            case 2:
+                return 25;
+            case 3:
+                return 5;
+            default:
+                return 0;
+
+        }
+    }
+
+    // Score output for prefab 4.
+    private int ScoreOut4(int num)
+    {
+        switch (num)
+        {
+            case 1:
+                return 15;
+            case 2:
+                return 25;
+            case 3:
+                return 5;
+            default:
+                return 0;
+
+        }
+    }
+    #endregion
 }
