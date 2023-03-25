@@ -10,10 +10,10 @@ public class DisplayScorePT : MonoBehaviour
     //public PlayerController playerCon;
     public ScoreSystemPT scoreSys;
     //public bool gameOver = false;
-    private float scoreStartX = 85f;
-    private float scoreStartY = -20f;
-    private float scoreGameOverX = 245f;
-    private float scoreGameOverY = -105f;
+    //private float scoreStartX = 85f;
+    //private float scoreStartY = -20f;
+    //private float scoreGameOverX = 245f;
+    //private float scoreGameOverY = -105f;
 
     /* Scale factor is set to 10, which messes with the positioning.
     void Start()

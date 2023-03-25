@@ -19,7 +19,7 @@ public class SwipeDetection : MonoBehaviour
     
     void Update()
     {
-        MobileTouch();
+        PCTouch();
     }
 
     // If you want to test out the controls on on PC with a mouse.

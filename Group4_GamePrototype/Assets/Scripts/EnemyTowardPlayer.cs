@@ -30,11 +30,8 @@ public class EnemyTowardPlayer : MonoBehaviour
     {
         Target = new Vector3(-4.5f, -0.1f, -0.5f);
         circleRadius = RandNumOut(randNum);
-        
-        if (IsFloating(randNumY))
-        {
-            transform.localScale = new Vector3(1, 4, 1);
-        }
+
+        MethodY(randNumY);
     }
     #endregion
 
@@ -91,18 +88,35 @@ public class EnemyTowardPlayer : MonoBehaviour
                 return 4.9f;
             default: // default also serves as case 2.
                 return 6.7f;
-            
         }
     }
+    #endregion
 
-    private bool IsFloating(float rn)
+    #region Scaling and Floating on Spawn
+    // Decides if the cube should be tall, floating, or in its default state.
+    // Translates Y value from "SpawnManager" script into 
+    private void MethodY(float rn)
     {
+        // Numerical values range from 0-9 (ten numbers).
         switch (rn)
         {
-            case 0:
-                return true;
+            // The first two cases make the enemy cube tall (1/4 chance of spawning like this).
+            case 0: // Leaving a case without a break or return makes the switch go onto the next case;
+            case 1:
+                elevationOffset = 0.6f; // Is on floor.
+                transform.localScale = new Vector3(1, 4, 1); // Is taller.
+                break;
+            // The second two cases make the enemy cube spawn above the player (1/4 chance of spawning like this).
+            case 2:
+            case 3:
+                elevationOffset = 2.4f; // Is floating.
+                transform.localScale = new Vector3(1, 1, 1); // Is normal size.
+                break;
+            // Every other case results in the enemy cube spawning on the floor at its normal size (3/5 chance of spawning like this).
             default:
-                return false;
+                elevationOffset = 0.6f; // Is on floor.
+                transform.localScale = new Vector3(1, 1, 1); // Is normal size.
+                break;
         }
     }
     #endregion

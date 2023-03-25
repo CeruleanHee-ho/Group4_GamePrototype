@@ -5,7 +5,8 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
     #region Variables
-    public GameObject obstaclePrefab;
+    public GameObject obstaclePrefab; // Prefab to be spawned; can be overwritten under certain conditions.
+    public GameObject cube;
     private Vector3 spawnPosition;
     public float startDelay;
     public float repeatRate;
@@ -21,6 +22,7 @@ public class SpawnManager : MonoBehaviour
     {
         randNum = Random.Range(0, 3);
         spawnPosition = new Vector3(randNum, randNumY, 0);
+        obstaclePrefab = cube;
         InvokeRepeating("SpawnObstacle", startDelay, repeatRate);
     }
     #endregion
@@ -38,12 +40,13 @@ public class SpawnManager : MonoBehaviour
             randNum = Random.Range(0, 3);
         }
 
-        #region Commented out code for spawning elevated enemy cubes (for use later).
+        #region Decides if enemy cube should be tall.
         // Ditto, but with the Y value.
-        randNumY = Random.Range(0, 3);
-        while (lastNumY == randNumY)
+        randNumY = Random.Range(0, 10);
+        while (lastNumY == randNumY && randNumY < 4) // The values 4 and onward all result in default case, which means there is no difference.
         {
-            randNumY = Random.Range(0, 3);
+            // A case of 4 results in the default case, meaning this will not allow an enemy cube to spawn in taller or above the player twice in a row.
+            randNumY = 4;
         }
         #endregion
 

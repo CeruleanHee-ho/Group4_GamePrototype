@@ -5,8 +5,8 @@ using UnityEngine;
 public class PlayerShadow : MonoBehaviour
 {
     public PlayerController player;
-    public float scaleFactor;
     public GameObject selfObject;
+    public float scaleFactor;
     private float sizeStart = 1;
     private float scale = 0.025f;
     private float posX;

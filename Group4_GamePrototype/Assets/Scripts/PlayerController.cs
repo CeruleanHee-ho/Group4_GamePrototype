@@ -91,7 +91,7 @@ public class PlayerController : MonoBehaviour
             //Debug.Log("Ya' dead!");
         }
 
-        //This raycast will check if there is an enemy cube below the player while they are jumping (the player only gets extra points if they are specifically jumping over an enemy cube).
+        // This raycast will check if there is an enemy cube below the player while they are jumping (the player only gets extra points if they are specifically jumping over an enemy cube).
         if (Physics.Raycast(position, -Vector3.up, (distance * 5), LayerMask.GetMask("Enemy")))
         {
             aboveEnemy = true;
@@ -102,10 +102,17 @@ public class PlayerController : MonoBehaviour
             aboveEnemy = false;
         }
 
+        // This raycast will check if the player is touching an enemy cube from below (effective when the player jumps up while an enemy cube is above them).
+        if (Physics.Raycast(position, Vector3.up, (distance * 5), LayerMask.GetMask("Enemy")))
+        {
+            gameOver = true;
+        }
+
         //Method to draw the ray in scene for debug purpose
-        Debug.DrawRay(transform.position, direction * distance, Color.green);
-        Debug.DrawRay(transform.position, -direction * distance, Color.green);
-        Debug.DrawRay(transform.position, -Vector3.up * (distance * 5), Color.green);
+        Debug.DrawRay(transform.position, direction * distance, Color.green); // In front of player.
+        Debug.DrawRay(transform.position, -direction * distance, Color.green); // Behind player.
+        Debug.DrawRay(transform.position, -Vector3.up * (distance * 5), Color.green); // Below player.
+        Debug.DrawRay(transform.position, Vector3.up * (distance * 5), Color.green); // Above player.
     }
     #endregion
 
