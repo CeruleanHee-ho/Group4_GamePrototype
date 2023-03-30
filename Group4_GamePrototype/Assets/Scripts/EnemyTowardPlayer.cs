@@ -97,22 +97,22 @@ public class EnemyTowardPlayer : MonoBehaviour
     // Translates Y value from "SpawnManager" script into 
     private void MethodY(float rn)
     {
-        // Numerical values range from 0-9 (ten numbers).
+        // Numerical values range from 0-13 (fourteen numbers).
         switch (rn)
         {
-            // The first two cases make the enemy cube tall (1/4 chance of spawning like this).
+            // The first two cases make the enemy cube tall (1/7 chance of spawning like this).
             case 0: // Leaving a case without a break or return makes the switch go onto the next case;
             case 1:
                 elevationOffset = 0.6f; // Is on floor.
                 transform.localScale = new Vector3(1, 4, 1); // Is taller.
                 break;
-            // The second two cases make the enemy cube spawn above the player (1/4 chance of spawning like this).
+            // The second two cases make the enemy cube spawn above the player (1/7 chance of spawning like this).
             case 2:
             case 3:
-                elevationOffset = 2.4f; // Is floating.
+                elevationOffset = 2.7f; // Is floating.
                 transform.localScale = new Vector3(1, 1, 1); // Is normal size.
                 break;
-            // Every other case results in the enemy cube spawning on the floor at its normal size (3/5 chance of spawning like this).
+            // Every other case results in the enemy cube spawning on the floor at its normal size (5/7 chance of spawning like this).
             default:
                 elevationOffset = 0.6f; // Is on floor.
                 transform.localScale = new Vector3(1, 1, 1); // Is normal size.

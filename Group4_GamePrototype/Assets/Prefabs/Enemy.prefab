@@ -58,6 +58,7 @@ GameObject:
   m_Component:
   - component: {fileID: 94392254}
   - component: {fileID: 94392255}
+  - component: {fileID: 1088144330150278334}
   m_Layer: 0
   m_Name: OuterShadow
   m_TagString: Untagged
@@ -132,6 +133,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1088144330150278334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 94392253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4d36cac4b9f5ca4e91a4fda6ac80ab7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  t: 0.2
 --- !u!1 &1213774268
 GameObject:
   m_ObjectHideFlags: 0
@@ -142,6 +156,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1213774269}
   - component: {fileID: 1213774270}
+  - component: {fileID: 1461430376980434387}
   m_Layer: 0
   m_Name: InnerShadow
   m_TagString: Untagged
@@ -216,6 +231,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1461430376980434387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1213774268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4d36cac4b9f5ca4e91a4fda6ac80ab7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  t: 0.08
 --- !u!1 &5718833420229597393
 GameObject:
   m_ObjectHideFlags: 0
@@ -231,7 +259,7 @@ GameObject:
   - component: {fileID: 5718833420229597396}
   m_Layer: 6
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -326,7 +354,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc363e05b73efb94f978dfca53fe8f09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateSpeed: 0.5
+  rotateSpeed: 1
 --- !u!1 &5718833420295481628
 GameObject:
   m_ObjectHideFlags: 0
@@ -339,7 +367,7 @@ GameObject:
   - component: {fileID: 1376737264892472688}
   m_Layer: 6
   m_Name: Enemy
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

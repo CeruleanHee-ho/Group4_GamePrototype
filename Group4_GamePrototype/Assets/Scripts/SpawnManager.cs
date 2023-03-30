@@ -12,8 +12,14 @@ public class SpawnManager : MonoBehaviour
     public float repeatRate;
     public int randNum; // Generates a random number to determine which lane the enemy cube spawns in.
     public int lastNum; // Keeps track of the last number (randNum) that was generated.
+    public int lastNum2; // Keeps track of the number that was generated before the number value in lastNum.
+    public int spamCount; // Keeps track of whether or not the spawn manager has been spawning the same pattern too often.
     public int randNumY; // Generates a random number to Determine whether or not the enemy cube will be floating.
     public int lastNumY; // Keeps track of the last number (randNumY) that was generated.
+    private float timer; // Timer for syncronization (more on that in "Global Timer" region).
+    private float timeout;
+    private bool alpha;
+    private float alphaOutput; // Is the global timer transparent or opaque? Categorized by decimal number.
     #endregion
 
     #region Setup
@@ -21,28 +27,75 @@ public class SpawnManager : MonoBehaviour
     void Start()
     {
         randNum = Random.Range(0, 3);
-        spawnPosition = new Vector3(randNum, randNumY, 0);
+        timer = 0;
+        timeout = 0.5f;
+        spawnPosition = new Vector3(randNum, randNumY, timer + alphaOutput);
         obstaclePrefab = cube;
         InvokeRepeating("SpawnObstacle", startDelay, repeatRate);
     }
     #endregion
 
+    void Update()
+    {
+        #region Global Timer
+        // This timer is here to pass these values on to the prefabs, which is done via the initial Z coordinate that the spawn manager gives to the prefab. The reason the spawn manager has a timer and passes the timer's values is so the blinking animation can be in sync with all prefabs on the screen.
+        // Furthermore, the global timer keeps track of whether the enemy shadows should be transparent or opaque by either adding 0 or 0.5f. This value can be broken down into two separate values: one for the timer and one for the alpha. More on that in "BlinkingAnimation.cs".
+        timer += Time.deltaTime; // Timer.
+        // When the timer is equal to the max amount of time set, reset timer and either become opaque or transparent.
+        if (timer > timeout)
+        {
+            if (alpha)
+            {
+                alpha = false;
+                alphaOutput = 0.5f;
+            }
+            else
+            {
+                alpha = true;
+                alphaOutput = 0;
+            }
+            timer = 0; // Resets timer.
+        }
+        #endregion
+    }
+
     #region Spawning
-    // This code calls a random number from 0-2, and each of those three numbers has their own output X position for the enemy cube to spawn at.
+    // This code calls a random number from 0-2, and each of those three numbers have their own output X position for the enemy cube to spawn at.
 
     // Spawns enemies and randomizes which lane they'll spawn in.
     void SpawnObstacle()
     {
         randNum = Random.Range(0, 3);
-        // This piece of code ensures that an enemy cube will never spawn in the same lane twice in a row.
-        while (lastNum == randNum)
+        // In it's entirety, this code prevents spawns from becoming too repetitive. Enemies will NEVER spawn in the same lane twice in a row. Likewise, the spawn manager is forced to change patterns if it has done the same pattern three times in a row.
+        if (spamCount >= 3)
         {
-            randNum = Random.Range(0, 3);
+            while (lastNum == randNum || lastNum2 == randNum) // lastNum and lastNum2 will never be equal to each other.
+            {
+                randNum = Random.Range(0, 3);
+            }
+            spamCount = 1; // The spam count is set to one instead of zero because this spawn counts as the first pattern to be compared with. This is done because the only other time the spam count can increase is through code that is unable to be access by this current enemy spawn due to is being locked behind an else statement.
+        }
+        else
+        {
+            // This piece of code ensures that an enemy cube will never spawn in the same lane twice in a row.
+            while (lastNum == randNum)
+            {
+                randNum = Random.Range(0, 3);
+            }
+
+            if (lastNum == randNum || lastNum2 == randNum) // For every repeated pattern, one point is added to the spam count. When the spam count reaches three, the spawn manager is forced to spawn a different random pattern.
+            {
+                spamCount += 1;
+            }
+            else
+            {
+                spamCount = 0; // Resets the spam count completely if the detected patterns is different from the last one.
+            }
         }
 
         #region Decides if enemy cube should be tall.
         // Ditto, but with the Y value.
-        randNumY = Random.Range(0, 10);
+        randNumY = Random.Range(0, 14);
         while (lastNumY == randNumY && randNumY < 4) // The values 4 and onward all result in default case, which means there is no difference.
         {
             // A case of 4 results in the default case, meaning this will not allow an enemy cube to spawn in taller or above the player twice in a row.
@@ -50,8 +103,9 @@ public class SpawnManager : MonoBehaviour
         }
         #endregion
 
-        Vector3 pos = new Vector3(randNum, randNumY, 0);
+        Vector3 pos = new Vector3(randNum, randNumY, timer);
         Instantiate(obstaclePrefab, pos, obstaclePrefab.transform.rotation);
+        lastNum2 = lastNum;
         lastNum = randNum;
         lastNumY = randNumY;
     }

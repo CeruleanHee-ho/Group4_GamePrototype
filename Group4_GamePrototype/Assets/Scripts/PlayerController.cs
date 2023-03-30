@@ -103,7 +103,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // This raycast will check if the player is touching an enemy cube from below (effective when the player jumps up while an enemy cube is above them).
-        if (Physics.Raycast(position, Vector3.up, (distance * 5), LayerMask.GetMask("Enemy")))
+        if (Physics.Raycast(position, Vector3.up, (distance * 6), LayerMask.GetMask("Enemy")))
         {
             gameOver = true;
         }
@@ -112,7 +112,7 @@ public class PlayerController : MonoBehaviour
         Debug.DrawRay(transform.position, direction * distance, Color.green); // In front of player.
         Debug.DrawRay(transform.position, -direction * distance, Color.green); // Behind player.
         Debug.DrawRay(transform.position, -Vector3.up * (distance * 5), Color.green); // Below player.
-        Debug.DrawRay(transform.position, Vector3.up * (distance * 5), Color.green); // Above player.
+        Debug.DrawRay(transform.position, Vector3.up * (distance * 6), Color.green); // Above player.
     }
     #endregion
 
