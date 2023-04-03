@@ -7,6 +7,8 @@ public class EnemyTowardPlayer : MonoBehaviour
     #region Variables
     public float despawnPoint;
     public GameObject selfObject;
+    public GameObject enemyNormal;
+    public GameObject enemyBig;
     public float randNum;
     public float randNumY;
 
@@ -83,16 +85,16 @@ public class EnemyTowardPlayer : MonoBehaviour
         switch (rn)
         {
             case 0:
-                return 3.4f; // You don't need breaks when using returns.
+                return 3.7f; // You don't need breaks when using returns.
             case 1:
-                return 4.9f;
+                return 5.2f;
             default: // default also serves as case 2.
-                return 6.7f;
+                return 7f;
         }
     }
     #endregion
 
-    #region Scaling and Floating on Spawn
+    #region Spawn Typings
     // Decides if the cube should be tall, floating, or in its default state.
     // Translates Y value from "SpawnManager" script into 
     private void MethodY(float rn)
@@ -104,18 +106,18 @@ public class EnemyTowardPlayer : MonoBehaviour
             case 0: // Leaving a case without a break or return makes the switch go onto the next case;
             case 1:
                 elevationOffset = 0.6f; // Is on floor.
-                transform.localScale = new Vector3(1, 4, 1); // Is taller.
+                Destroy(enemyNormal); // Both models are spawned in, but the normal enemy model is destroyed.
                 break;
             // The second two cases make the enemy cube spawn above the player (1/7 chance of spawning like this).
             case 2:
             case 3:
                 elevationOffset = 2.7f; // Is floating.
-                transform.localScale = new Vector3(1, 1, 1); // Is normal size.
+                Destroy(enemyBig); // Both models are spawned in, but the big enemy model is destroyed.
                 break;
             // Every other case results in the enemy cube spawning on the floor at its normal size (5/7 chance of spawning like this).
             default:
                 elevationOffset = 0.6f; // Is on floor.
-                transform.localScale = new Vector3(1, 1, 1); // Is normal size.
+                Destroy(enemyBig); // Both models are spawned in, but the big enemy model is destroyed.
                 break;
         }
     }

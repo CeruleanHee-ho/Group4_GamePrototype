@@ -78,21 +78,22 @@ public class PlayerController : MonoBehaviour
     {
         // There are rays on both sides of the player on the Z axis, and if either of those rays touch an object with the "Enemy" layer, then it's Game Over.
         Vector3 position = transform.position;
-        Vector3 direction = Vector3.forward;
-        if (Physics.Raycast(position, direction, distance, LayerMask.GetMask("Enemy")))
+        Vector3 direction1 = Vector3.forward;
+        Vector3 direction2 = Vector3.up;
+        if (Physics.Raycast(position, direction1, distance, LayerMask.GetMask("Enemy")))
         {
             gameOver = true;
             //Debug.Log("Ya' dead!");
         }
 
-        if (Physics.Raycast(position, -direction, distance, LayerMask.GetMask("Enemy")))
+        if (Physics.Raycast(position, -direction1, distance, LayerMask.GetMask("Enemy")))
         {
             gameOver = true;
             //Debug.Log("Ya' dead!");
         }
 
         // This raycast will check if there is an enemy cube below the player while they are jumping (the player only gets extra points if they are specifically jumping over an enemy cube).
-        if (Physics.Raycast(position, -Vector3.up, (distance * 5), LayerMask.GetMask("Enemy")))
+        if (Physics.Raycast(position, -direction2, (distance * 6), LayerMask.GetMask("Enemy")))
         {
             aboveEnemy = true;
             //Debug.Log("Bonus Points!!!");
@@ -103,16 +104,16 @@ public class PlayerController : MonoBehaviour
         }
 
         // This raycast will check if the player is touching an enemy cube from below (effective when the player jumps up while an enemy cube is above them).
-        if (Physics.Raycast(position, Vector3.up, (distance * 6), LayerMask.GetMask("Enemy")))
+        if (Physics.Raycast(position, direction2, (distance * 6), LayerMask.GetMask("Enemy")))
         {
             gameOver = true;
         }
 
         //Method to draw the ray in scene for debug purpose
-        Debug.DrawRay(transform.position, direction * distance, Color.green); // In front of player.
-        Debug.DrawRay(transform.position, -direction * distance, Color.green); // Behind player.
-        Debug.DrawRay(transform.position, -Vector3.up * (distance * 5), Color.green); // Below player.
-        Debug.DrawRay(transform.position, Vector3.up * (distance * 6), Color.green); // Above player.
+        Debug.DrawRay(transform.position, direction1 * distance, Color.green); // In front of player.
+        Debug.DrawRay(transform.position, -direction1 * distance, Color.green); // Behind player.
+        Debug.DrawRay(transform.position, -direction2 * (distance * 6), Color.green); // Below player.
+        Debug.DrawRay(transform.position, direction2 * (distance * 6), Color.green); // Above player.
     }
     #endregion
 

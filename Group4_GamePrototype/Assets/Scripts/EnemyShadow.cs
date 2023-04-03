@@ -21,10 +21,12 @@ public class EnemyShadow : MonoBehaviour
         if (posY > 1)
         {
             selfObject.transform.position = new Vector3(posX, 0, posZ);
+            selfObject.transform.localScale = new Vector3(2.85f, 2.85f, 2.85f);
         }
         else
         {
-            Destroy(selfObject);
+            selfObject.transform.position = new Vector3(posX, 0, posZ);
+            selfObject.transform.localScale = new Vector3(2, 2, 2);
         }
     }
 }

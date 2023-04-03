@@ -5,12 +5,12 @@ using UnityEngine;
 public class ScoreSystem : MonoBehaviour
 {
     #region Variables
-    public float score;
+    public int score;
     public float gameTime;
     public float lastTime;
     // These two variables temporarily lock the player out of getting bonuses until they touch the ground. Without the locks, if a player got a jumping bonus, they'd essentially get five to ten points every frame they're above the enemy, however, having the locks active prevents that from happening and the player will only get the bonus once during that whole jump.
-    private bool aboveBonusGet;
-    private bool laneBonusGet;
+    public bool aboveBonusGet;
+    public bool laneBonusGet;
 
     private float lastLane;
     private float lastLaneTemp;
@@ -28,10 +28,19 @@ public class ScoreSystem : MonoBehaviour
     {
         bonusDelay = true;
         airDelay = false;
+        PlayerPrefs.GetInt("HighScore");
     }
 
     void Update()
     {
+        #region Update High Score When Score Value is Higher Than High Score Value
+        if (score > PlayerPrefs.GetInt("HighScore", 0))
+        {
+            PlayerPrefs.SetInt("HighScore", score);
+            PlayerPrefs.Save();
+        }
+        #endregion
+
         #region One Point Every Second Still Alive
         if (!playerCon.gameOver)
         {
